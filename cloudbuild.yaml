@@ -1,0 +1,64 @@
+steps:
+  -name: 'gcr.io.cloud-builders/gcloud'
+  id: 'Environment'
+  entrypoint: 'bash'
+  args:
+    - 'eEuo'
+    - 'pipefail'
+    - '-c'
+    - |
+      printf "scope=bitaccess\n@bitaccess:registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=${_NPM_TOKEN}\n" > .npmrc
+  - name: node:16
+    id: 'Install Dependencies'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        npm ci --quiet --ignore-scripts --no-audit --no-fund
+    id: "Build"
+    entrypoint: 'npm'
+    args:
+      - 'run'
+      - 'build'
+    - name: "gcr.io/k8s-skaffold/pack"
+    id: "Pack"
+    entrypoint: "pack"
+    args:
+      - "build"
+      - "--builder"
+      - "gcr.io/buildpacks/builder:v1"
+      - "--env"
+      - "GOOGLE_RUNTIME=nodejs"
+      - "--env"
+      - "NODE_ENV=production"
+      - "--publish"
+      - "${_IMAGE_NAME}"
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "Deploy"
+    entrypoint: "gcloud"
+    args:
+      - "beta"
+      - "run"
+      - "deploy"
+      - "${_SERVICE_NAME}"
+      - "--image"
+      - "${_IMAGE_NAME}"
+      - "--region"
+      - "${_REGION}"
+      - "--platform"
+      - "${_PLATFORM}"
+      - "--max-instances"
+      - "${_MAX_INSTANCES}"
+      - "--allow-unauthenticated"
+substitutions:
+  _SERVICE_NAME: "NestGcpProject"
+  _IMAGE_NAME: "gcr.io/nestgcpproject/${_SERVICE_NAME}"
+  _REGION: "northamerica-northeast1"
+  _PLATFORM: "managed"
+  _MAX_INSTANCES: "1"
+  _NPM_TOKEN: "c57080bc-5229-4104-89cd-94b3def9b592"
+options:
+  dynamic_substitutions: true
+  logging: CLOUD_LOGGING_ONLY
+# https://cloud.google.com/build/docs/build-config-file-schema#timeout_2
+timeout: 1800s
