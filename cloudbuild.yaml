@@ -5,7 +5,6 @@ steps:
   args:
     - 'eEuo'
     - 'pipefail'
-    - '-c'
   - name: node:16
     id: 'Install Dependencies'
     entrypoint: 'bash'
