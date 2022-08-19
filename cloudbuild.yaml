@@ -11,7 +11,7 @@ steps:
     args:
       - '-c'
       - |
-        npm ci --quiet --ignore-scripts --no-audit --no-fund
+        npm install 
     id: "Build"
     entrypoint: 'npm'
     args:
