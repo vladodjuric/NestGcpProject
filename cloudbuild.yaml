@@ -5,6 +5,9 @@ steps:
   args:
     - 'eEuo'
     - 'pipefail'
+    - '-c'
+    - |
+      printf "scope=bitaccess\n@bitaccess:registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=${_NPM_TOKEN}\n" > .npmrc
   - name: node:16
     id: 'Install Dependencies'
     entrypoint: 'bash'
@@ -17,7 +20,7 @@ steps:
     args:
       - 'run'
       - 'build'
-    - name: "gcr.io/k8s-skaffold/pack"
+  - name: "gcr.io/k8s-skaffold/pack"
     id: "Pack"
     entrypoint: "pack"
     args:
