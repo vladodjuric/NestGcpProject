@@ -3,11 +3,10 @@ steps:
   id: 'Environment'
   entrypoint: 'bash'
   args:
-    - 'eEuo'
-    - 'pipefail'
     - '-c'
     - |
       printf "scope=bitaccess\n@bitaccess:registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=${_NPM_TOKEN}\n" > .npmrc
+    secretEnv: [ 'NPM_TOKEN' ]
   - name: node:16
     id: 'Install Dependencies'
     entrypoint: 'bash'
