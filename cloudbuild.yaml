@@ -55,7 +55,7 @@ availableSecrets:
       env: 'NPM_TOKEN'
 substitutions:
   _SERVICE_NAME: "NestGcpProject"
-  _IMAGE_NAME: "gcr.io/nestgcpproject/${_SERVICE_NAME}"
+  _IMAGE_NAME: "gcr.io/nestgcpproject/${CR_SERVICE_NAME}"
   _REGION: "northamerica-northeast1"
   _PLATFORM: "managed"
   _MAX_INSTANCES: "1"
