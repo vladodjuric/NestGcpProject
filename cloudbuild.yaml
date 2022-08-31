@@ -51,7 +51,7 @@ steps:
       - "--allow-unauthenticated"
 availableSecrets:
   secretManager:
-    - versionName: 'projects/<project-id>/secrets/npm_token/versions/latest'
+    - versionName: 'projects/nestgcpproject/secrets/npm_token/versions/latest'
       env: 'NPM_TOKEN'
 substitutions:
   _SERVICE_NAME: "NestGcpProject"
