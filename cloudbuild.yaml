@@ -49,6 +49,10 @@ steps:
       - "--max-instances"
       - "${_MAX_INSTANCES}"
       - "--allow-unauthenticated"
+availableSecrets:
+  secretManager:
+    - versionName: 'projects/<project-id>/secrets/npm_token/versions/latest'
+      env: 'NPM_TOKEN'
 substitutions:
   _SERVICE_NAME: "NestGcpProject"
   _IMAGE_NAME: "gcr.io/nestgcpproject/${_SERVICE_NAME}"
