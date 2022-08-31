@@ -6,7 +6,7 @@ steps:
     - '-c'
     - |
       printf "scope=bitaccess\n@bitaccess:registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=${_NPM_TOKEN}\n" > .npmrc
-  secretEnv: [ 'npm_token' ]
+    secretEnv: [ 'NPM_TOKEN' ]
   - name: node:16
     id: 'Install Dependencies'
     entrypoint: 'bash'
@@ -55,7 +55,7 @@ availableSecrets:
       env: 'NPM_TOKEN'
 substitutions:
   _SERVICE_NAME: "NestGcpProject"
-  _IMAGE_NAME: "gcr.io/nestgcpproject/${CR_SERVICE_NAME}"
+  _IMAGE_NAME: "gcr.io/nestgcpproject/${_SERVICE_NAME}"
   _REGION: "northamerica-northeast1"
   _PLATFORM: "managed"
   _MAX_INSTANCES: "1"
