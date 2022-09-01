@@ -19,15 +19,15 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '${{ secrets.DEV_SA_KEY_JSON }}'
+          credentials_json: '${{ secrets.SA_KEY_JSON }}'
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v0'
         with:
-          project_id: ${{ secrets.DEV_PROJECT_ID}}
+          project_id: ${{ secrets.PROJECT_ID}}
       - name: Substitute Values
         run: |
-          sed -i 's/<cloud-run-sa>/${{ secrets.DEV_CR_SA }}/' ./.github/workflows/build/build.yml && \
-          sed -i 's/<project-id>/${{ secrets.DEV_PROJECT_ID }}/' ./.github/workflows/build/build.yml && \
+          sed -i 's/<cloud-run-sa>/${{ secrets.CR_SA }}/' ./.github/workflows/build/build.yml && \
+          sed -i 's/<project-id>/${{ secrets.PROJECT_ID }}/' ./.github/workflows/build/build.yml && \
           sed -i 's/<service-name>/${{ secrets.CR_SERVICE_NAME }}/' ./.github/workflows/build/build.yml && \
           sed -i 's/<min-instances>/0/' ./.github/workflows/build/build.yml && \
           sed -i 's/<commit-sha>/${{ github.sha }}/' ./.github/workflows/build/build.yml
