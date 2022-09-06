@@ -7,6 +7,7 @@ jobs:
   deploy_main:
     name: Deploy main
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
