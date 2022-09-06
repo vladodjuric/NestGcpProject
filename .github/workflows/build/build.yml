@@ -55,7 +55,6 @@ substitutions:
   _REGION: 'northamerica-northeast1'
   _PLATFORM: 'managed'
   _MAX_INSTANCES: '1'
-  _NPM_TOKEN: 'c57080bc-5229-4104-89cd-94b3def9b592'
 options:
   dynamic_substitutions: true
   logging: CLOUD_LOGGING_ONLY
