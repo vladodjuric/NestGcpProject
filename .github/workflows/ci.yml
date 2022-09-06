@@ -7,6 +7,8 @@ jobs:
   deploy_main:
     name: Deploy main
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
